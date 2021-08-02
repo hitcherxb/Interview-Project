@@ -1,115 +1,121 @@
-import React, { Component } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
+import { Form, Button, Row, Col } from "react-bootstrap";
+import axios from 'axios';
+import ErrorMessage from '../ErrorMessage';
 
 
 
-class App extends Component {
-    constructor() {
-        super()
-        this.state = {
-            fullName: '',
-            username: '',
-            email: '',
-            password: ''
-        }
-        this.changeFullName = this.changeFullName.bind(this)
-        this.changeUsername = this.changeUsername.bind(this)
-        this.changeEmail = this.changeEmail.bind(this)
-        this.changePassword = this.changePassword.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-    changeFullName(e) {
-        this.setState({
-            fullName: e.target.value
-        })
-    }
 
-    changeUsername(e) {
-        this.setState({
-            username: e.target.value
-        })
-    }
+function RegisterScreen(props) {
 
-    changeEmail(e) {
-        this.setState({
-            email: e.target.value
-        })
-    }
+    const [username, setUsername] = useState("")
+    const [fullName, setFullName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [error, setError] = useState(false)
+    const [message, setMessage] = useState(null)
 
-    changePassword(e) {
-        this.setState({
-            password: e.target.value
-        })
-    }
+    const submitHandler = async (e) => {
+        e.preventDefault();
 
-    onSubmit(e) {
-        e.preventDefault()
+        if (password !== confirmPassword) {
+            setMessage("Passwords Do Not Match");
+        } else {
+            setMessage(null)
 
-        const registered = {
-            fullName: this.state.fullName,
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data } = await axios.post(
+                    "http://localhost:4000/api/users",
+                    { fullName, username, email, password },
+                    config
+                )
+
+                localStorage.setItem("userInfo", JSON.stringify(data));
+            } catch (error) {
+                setError(error.response.data.message)
+
+            }
         }
 
-        axios.post('http://localhost:4000/api/users', registered)
-            .then(res => console.log(res.data))
 
-        window.location = '/'
     }
 
-    render() {
-        return (
-            <div>
-                <div className='container'>
-                    <div className='form-div'>
-                        <form onSubmit={this.onSubmit}>
-                            <input type='text'
-                                placeholder='Full Name'
-                                onChange={this.changeFullName}
-                                value={this.state.fullName}
-                                className='form-control form-group'
-                            />
-
-                            <input type='text'
-                                placeholder='Username'
-                                onChange={this.changeUsername}
-                                value={this.state.username}
-                                className='form-control form-group'
-                            />
-
-                            <input type='text'
-                                placeholder='email'
-                                onChange={this.changeEmail}
-                                value={this.state.email}
-                                className='form-control form-group'
-                            />
-
-                            <input type='password'
-                                placeholder='password'
-                                onChange={this.changePassword}
-                                value={this.state.password}
-                                className='form-control form-group'
-                            />
-
-                            <input type='submit' className='btn btn-danger btn-block' value="Submit" />
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
-
-function Signup(props) {
     return (
-        <div>
-            <App />
+
+
+        <div className='loginContainer'>
+            <div className='form-div'>
+                {error && <ErrorMessage varient="danger">{error}</ErrorMessage>}
+                {message && <ErrorMessage varient="danger">{message}</ErrorMessage>}
+                <Form onSubmit={submitHandler}>
+                    <Form.Group controlId="fullName">
+                        <Form.Label>Full Name</Form.Label>
+                        <Form.Control
+                            type="fullName"
+                            value={fullName}
+                            placeholder="Enter name"
+                            onChange={(e) => setFullName(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="username">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                            type="username"
+                            value={username}
+                            placeholder="Enter Username"
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="email">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            value={email}
+                            placeholder="Enter Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="password">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            value={password}
+                            placeholder="Enter Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="confirmPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            value={confirmPassword}
+                            placeholder="Enter Password"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+                <Row className="py-3">
+                    <Col>
+                        Already have an account? <Link to='/login'>Sign In</Link>
+                    </Col>
+                </Row>
+
+            </div>
         </div>
+
     );
 }
 
 
-export default Signup;
+export default RegisterScreen;

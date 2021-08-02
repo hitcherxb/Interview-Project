@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 
-function Home(props) {
+
+
+
+function Home({ history }) {
+
+    // useEffect(() => {
+    //     const userInfo = localStorage.getItem("userInfo")
+    //     if (userInfo) {
+    //         history.push("/mynotes")
+    //     }
+    // }, [history])
+
     return (
         <div>
             Home page

@@ -1,5 +1,5 @@
 import './App.css';
-import { Switch, Link, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Signup from './components/signup/Signup'
 import Home from './components/home/Home';
 import LoginPage from './components/login/LoginPage';
