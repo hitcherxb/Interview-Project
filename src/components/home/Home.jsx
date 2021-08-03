@@ -1,22 +1,18 @@
 import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
 
 
 
 
-function Home({ history }) {
+function Home() {
 
-    // useEffect(() => {
-    //     const userInfo = localStorage.getItem("userInfo")
-    //     if (userInfo) {
-    //         history.push("/mynotes")
-    //     }
-    // }, [history])
+
 
     return (
         <div>
-            Home page
+            <Header />
             <Link to='/login'>
                 <Button size='lg' className="landingbutton">
                     Login
