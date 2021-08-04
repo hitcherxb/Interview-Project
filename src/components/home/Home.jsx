@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';

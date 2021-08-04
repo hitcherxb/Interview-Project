@@ -5,6 +5,7 @@ import './LoginPage.css'
 import axios from 'axios';
 import ErrorMessage from '../ErrorMessage';
 import Header from '../Header/Header'
+import serverUrl from '../../api';
 
 
 
@@ -22,6 +23,10 @@ function LoginPage() {
         }
     }, [history])
 
+    // getUser: async () => {
+    //     return await axios.get(`${serverUrl}/get-user`, createHeaders())
+    // },
+
 
     const submitHandler = async (e) => {
         e.preventDefault()
@@ -35,7 +40,7 @@ function LoginPage() {
             }
 
             const { data } = await axios.post(
-                'http://localhost:4000/api/users/login', {
+                `${serverUrl}users/login`, {
                 username,
                 password
             }, config);

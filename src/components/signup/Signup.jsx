@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import axios from 'axios';
 import ErrorMessage from '../ErrorMessage';
 import Header from '../Header/Header';
+import serverUrl from '../../api';
 
 
 function RegisterScreen() {
@@ -16,6 +17,7 @@ function RegisterScreen() {
     const [error, setError] = useState(false)
     const [message, setMessage] = useState(null)
     const history = useHistory();
+
 
     useEffect(() => {
         const userInfo = localStorage.getItem("userInfo")
@@ -40,7 +42,7 @@ function RegisterScreen() {
                 };
 
                 const { data } = await axios.post(
-                    "http://localhost:4000/api/users",
+                    `${serverUrl}users/`,
                     { fullName, username, email, password },
                     config
                 )

@@ -1,5 +1,5 @@
+import axios from "axios";
 import React, { setState, useEffect } from "react";
-import actions from "../api";
 import {
     Container,
     Form,
@@ -10,17 +10,18 @@ import {
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import "./header.css"
+import serverUrl from '../../api';
+
+
 
 function Header() {
-
-    const [user, setUser] = setState('')
-
-    useEffect(() => {
-        actions.getUser().then(res => {
-            setUser(res.data.fullName)
-        })
-
-    }, [])
+    let fullName = JSON.parse(localStorage.getItem("userInfo"))
+    console.log(fullName)
+    if (!fullName) {
+        fullName = "Sign In"
+    } else {
+        fullName = fullName.fullName
+    }
 
     const history = useHistory()
 
@@ -35,8 +36,8 @@ function Header() {
 
 
                     <Nav>
-                        <Nav.Link href="/mynotes">Feed</Nav.Link>
-                        <NavDropdown title={`${user}`} id="basic-nav-dropdown">
+                        <Nav.Link href="/feed">Feed</Nav.Link>
+                        <NavDropdown title={fullName} id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">
                                 My Profile
                             </NavDropdown.Item>
