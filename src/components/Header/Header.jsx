@@ -1,19 +1,17 @@
-import axios from "axios";
-import React, { setState, useEffect } from "react";
+
+import React from "react";
 import {
     Container,
-    Form,
-    FormControl,
     Nav,
     Navbar,
     NavDropdown,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import "./header.css"
-import serverUrl from '../../api';
 
 
 
+//Replacing Sign In with a name for the profile dropdown
 function Header() {
     let fullName = JSON.parse(localStorage.getItem("userInfo"))
     if (!fullName) {
@@ -22,11 +20,12 @@ function Header() {
         fullName = fullName.fullName
     }
 
+
     const history = useHistory()
 
     return (
         <Navbar bg="primary" expand='lg' variant="dark">
-            <Container>
+            <Container id='container'>
                 <Navbar.Brand id="title">
                     <Link to='/' >Project</Link>
                 </Navbar.Brand>
@@ -37,7 +36,7 @@ function Header() {
                     <Nav>
                         <Nav.Link href="/feed">Feed</Nav.Link>
                         <NavDropdown title={fullName} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">
+                            <NavDropdown.Item href='/profile'>
                                 My Profile
                             </NavDropdown.Item>
 

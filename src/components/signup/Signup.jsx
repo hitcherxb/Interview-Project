@@ -4,7 +4,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import axios from 'axios';
 import ErrorMessage from '../ErrorMessage';
 import Header from '../Header/Header';
-import serverUrl from '../../api';
+import serverUrl from '../../server';
+import './signup.css'
 
 
 function RegisterScreen() {
@@ -14,11 +15,10 @@ function RegisterScreen() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-    const [error, setError] = useState(false)
     const [message, setMessage] = useState(null)
     const history = useHistory();
 
-
+    //Checking if user is logged in
     useEffect(() => {
         const userInfo = localStorage.getItem("userInfo")
         if (userInfo) {
@@ -26,57 +26,46 @@ function RegisterScreen() {
         }
     }, [history])
 
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
+        //Checking if passwords match
         if (password !== confirmPassword) {
             setMessage("Passwords Do Not Match");
         } else {
             setMessage(null)
 
-            try {
-                const config = {
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                };
+            //Posting to server and creating account
 
-                const { data } = await axios.post(
-                    `${serverUrl}users/`,
-                    { fullName, username, email, password },
-                    config
-                )
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
 
-                localStorage.setItem("userInfo", JSON.stringify(data));
-                history.push("/profile")
+            const { data } = await axios.post(
+                `${serverUrl}users/`,
+                { fullName, username, email, password },
+                config
+            )
 
-            } catch (error) {
-                setError(error.response.data.message)
-
-            }
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            history.push("/profile")
         }
-
-
-
-
-
-
     }
-
-
-
 
     return (
         <div>
             <Header />
             <div className='loginContainer'>
                 <div className='form-div'>
-                    {error && <ErrorMessage varient="danger">{error}</ErrorMessage>}
                     {message && <ErrorMessage varient="danger">{message}</ErrorMessage>}
                     <Form onSubmit={submitHandler}>
                         <Form.Group controlId="fullName">
                             <Form.Label>Full Name</Form.Label>
                             <Form.Control
+                                className='input'
                                 type="fullName"
                                 value={fullName}
                                 placeholder="Enter name"
@@ -86,6 +75,7 @@ function RegisterScreen() {
                         <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
                             <Form.Control
+                                className='input'
                                 type="username"
                                 value={username}
                                 placeholder="Enter Username"
@@ -95,6 +85,7 @@ function RegisterScreen() {
                         <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
+                                className='input'
                                 type="email"
                                 value={email}
                                 placeholder="Enter Email"
@@ -104,6 +95,7 @@ function RegisterScreen() {
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
+                                className='input'
                                 type="password"
                                 value={password}
                                 placeholder="Enter Password"
@@ -113,6 +105,7 @@ function RegisterScreen() {
                         <Form.Group controlId="confirmPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
+                                className='input'
                                 type="password"
                                 value={confirmPassword}
                                 placeholder="Enter Password"

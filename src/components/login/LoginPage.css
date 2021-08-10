@@ -1,5 +1,14 @@
 .loginContainer {
     display: flex;
     flex-direction: column;
-    margin: 20px
+    margin: 50px;
+    height:50vh;
+}
+
+#usernameInput{
+    margin: .5vh 0 1vh 0
+}
+
+#passwordInput{
+    margin: .5vh 0 1vh 0
 }

@@ -14,25 +14,10 @@ app.use(cors())
 
 mongoose.connect(process.env.DATABASE_ACCESS, { useFindAndModify: false }, () => console.log("Database Connected"))
 
-
-
-
-
-
-
+//Route to userRoutes 
 app.use('/api/users', userRoutes)
+//Route to postRoutes
 app.use('/api/post', postRoutes)
-
-app.get('/', (req, res) => {
-    res.send('API is running..');
-});
-
-app.get('/api/profile', (req, res) => {
-    console.log(req)
-    res.json("profile");
-});
-
-
 
 
 app.use(notFound)

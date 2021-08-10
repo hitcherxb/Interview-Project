@@ -1,0 +1,30 @@
+#titleFeed{
+    display: flex;
+justify-content: center;
+margin-top:3vh;
+}
+
+
+/* Posts */
+
+#containerBox{
+    display: flex;
+    justify-content: center;
+    margin: 2vh 0
+    
+}
+
+#postBox{
+    width:50vw;
+    border: solid 5px #0d6efd;
+    border-radius: 20px;
+}
+
+#name{
+    margin-left:2vw;
+}
+
+#post{
+    text-align: center;
+}
+
