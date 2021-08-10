@@ -1,4 +1,4 @@
-##Login-Project-App
+Login-Project-App
 
 This is an app that allows you you login to your account, post and see everyones feed on the main page.
 
