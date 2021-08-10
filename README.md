@@ -1,6 +1,12 @@
+#Login-Project-App
+
+This is an app that allows you you login to your account, post and see everyones feed on the main page.
+
 #How to Run:
 
-- npm install
+Stack Used : MongoDB, Express.js, React.js, Node.js
+
+- `npm install`
 - `npm start` in "login-app"
-- npm start in "signup-backend"
-- 
+- `npm start` in "signup-backend" - Port 4000
+- server is stored under login-app > signup-backend > server.js
