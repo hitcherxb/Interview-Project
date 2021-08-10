@@ -1,4 +1,6 @@
 #How to Run:
 
-- npm i
+- npm install
+- `npm start` in "login-app"
+- npm start in "signup-backend"
 - 
