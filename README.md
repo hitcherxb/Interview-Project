@@ -2,9 +2,9 @@ Login-Project-App
 
 This is an app that allows you you login to your account, post and see everyones feed on the main page.
 
-How to Run:
-
 Stack Used : MongoDB, Express.js, React.js, Node.js
+
+How to Run:
 
 - `npm install`
 - `npm start` in "login-app"
