@@ -53,15 +53,30 @@ const authUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Invalid Username or Password!')
     }
-
-
 });
 
 const getinfo = asyncHandler(async (req, res) => {
     const token = req.headers.authorization.split(' ')[1]
     const tokenauth = jwt.verify(token, process.env.JWT_SECRET)
     const response = await User.findById(tokenauth.id)
-    console.log(response)
     res.json({ data: response })
 });
-module.exports = { registerUser, authUser, getinfo };
+
+const input = asyncHandler(async (req, res) => {
+    const { userInput } = req.body;
+    console.log(req.body)
+
+    const token = req.headers.authorization.split(' ')[1]
+    const tokenauth = jwt.verify(token, process.env.JWT_SECRET)
+    console.log(tokenauth)
+
+    const input = await User.findByIdAndUpdate(tokenauth.id, { $push: { "input": userInput } })
+
+    res.status(201).json({
+        data: input,
+    })
+});
+
+
+
+module.exports = { registerUser, authUser, getinfo, input };

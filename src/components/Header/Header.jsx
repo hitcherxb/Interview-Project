@@ -16,7 +16,6 @@ import serverUrl from '../../api';
 
 function Header() {
     let fullName = JSON.parse(localStorage.getItem("userInfo"))
-    console.log(fullName)
     if (!fullName) {
         fullName = "Sign In"
     } else {

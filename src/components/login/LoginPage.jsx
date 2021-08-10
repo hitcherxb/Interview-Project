@@ -23,9 +23,7 @@ function LoginPage() {
         }
     }, [history])
 
-    // getUser: async () => {
-    //     return await axios.get(`${serverUrl}/get-user`, createHeaders())
-    // },
+
 
 
     const submitHandler = async (e) => {

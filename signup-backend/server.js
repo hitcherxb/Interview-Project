@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const userRoutes = require('./routes/userRoutes')
+const postRoutes = require('./routes/postRoutes')
 const cors = require('cors')
 const { errorHandler, notFound } = require('./middlewares/errorMiddleware')
 
@@ -11,7 +12,7 @@ dotenv.config()
 app.use(cors())
 
 
-mongoose.connect(process.env.DATABASE_ACCESS, () => console.log("Database Connected"))
+mongoose.connect(process.env.DATABASE_ACCESS, { useFindAndModify: false }, () => console.log("Database Connected"))
 
 
 
@@ -20,6 +21,7 @@ mongoose.connect(process.env.DATABASE_ACCESS, () => console.log("Database Connec
 
 
 app.use('/api/users', userRoutes)
+app.use('/api/post', postRoutes)
 
 app.get('/', (req, res) => {
     res.send('API is running..');
@@ -29,6 +31,7 @@ app.get('/api/profile', (req, res) => {
     console.log(req)
     res.json("profile");
 });
+
 
 
 
