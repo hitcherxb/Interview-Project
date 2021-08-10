@@ -9,4 +9,4 @@ Stack Used : MongoDB, Express.js, React.js, Node.js
 - `npm install`
 - `npm start` in "login-app"
 - `npm start` in "signup-backend" - Port 4000
-- server is stored under login-app > signup-backend > server.js
+- Server is stored under login-app > signup-backend > server.js
